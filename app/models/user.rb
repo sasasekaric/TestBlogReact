@@ -5,5 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :validatable, :confirmable, :lockable
 
+  has_many :posts, dependent: :destroy
+
+  validates_uniqueness_of :name
+  validates_presence_of :name
+
+
 
 end
