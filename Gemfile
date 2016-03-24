@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 gem 'rspec-rails', '~> 3.0', group: [:test, :development]
 gem 'spring-commands-rspec', group: [:test, :development]
 gem 'shoulda-matchers', '~> 3.0', group: [:test, :development]
+gem 'shoulda-callback-matchers', group: [:test, :development]
 gem 'cucumber-rails', :require => false, group: [:test, :development]
 gem 'spring-commands-cucumber', group: [:test, :development]
 gem 'database_cleaner', group: [:test, :development]
@@ -14,6 +15,7 @@ gem 'guard-cucumber', group: [:test, :development]
 gem 'factory_girl_rails', group: [:test, :development]
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'pundit'
 
 # To use bootstrap tooltips and popovers you need tether, just uncomment next lines
 source 'https://rails-assets.org' do
