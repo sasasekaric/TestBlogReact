@@ -5,27 +5,39 @@ RSpec.describe PostPolicy do
   let(:user) { create(:user) }
   let(:post) { create(:post, user: user) }
 
-  context "being a visitor" do
+  context "as a visitor" do
     let(:current_user) { nil }
 
     it { should permit_action(:index) }
     it { should permit_action(:show) }
-    it { should forbid_action(:new) }
+    it { should permit_action(:new) }
+    it { should permit_action(:create) }
     it { should forbid_action(:destroy) }
     it { should forbid_action(:edit) }
-    it { should forbid_action(:create) }
     it { should forbid_action(:update) }
   end
 
-  # context "being an loged in user" do
-  #   let(:current_user) { sign_in(create(:user)) }
+  context "as loged in user with own post" do
+    let(:current_user) { user }
 
-  #   it { should permit_action(:index) }
-  #   it { should permit_action(:new) }
-  #   it { should permit_action(:destroy) }
-  #   it { should permit_action(:edit) }
-  #   it { should permit_action(:show) }
-  #   it { should permit_action(:create) }
-  #   it { should permit_action(:update) }
-  # end
+    it { should permit_action(:index) }
+    it { should permit_action(:new) }
+    it { should permit_action(:destroy) }
+    it { should permit_action(:edit) }
+    it { should permit_action(:show) }
+    it { should permit_action(:create) }
+    it { should permit_action(:update) }
+  end
+
+  context "as loged in user with other post" do
+    let(:current_user) { create(:user) }
+
+    it { should permit_action(:index) }
+    it { should permit_action(:new) }
+    it { should permit_action(:show) }
+    it { should permit_action(:create) }
+    it { should forbid_action(:destroy) }
+    it { should forbid_action(:edit) }
+    it { should forbid_action(:update) }
+  end
 end

@@ -17,18 +17,9 @@ SimpleCov.start 'rails'
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
 #
-require 'shoulda/matchers'
-require_relative 'support/devise_helpers'
-require_relative 'support/pundit_matchers'
-
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
-  config.include Warden::Test::Helpers
-  config.include Devise::TestHelpers, :type => :controller
-  config.include DeviseHelpers, :type => :request
-  config.include Shoulda::Callback::Matchers::ActiveModel
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
