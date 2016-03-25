@@ -35,9 +35,24 @@ RSpec.configure do |config|
 
   config.before :suite do
     Warden.test_mode!
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
   end
+
   config.after :each do
     Warden.test_reset!
+  end
+
+  config.after :suite do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

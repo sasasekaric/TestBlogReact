@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :my_posts, :edit, :create, :update, :destroy]
   after_action :verify_authorized
-
 
   # GET /posts
   # GET /posts.json

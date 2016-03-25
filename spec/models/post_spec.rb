@@ -16,7 +16,7 @@ RSpec.describe Post, type: :model do
 
   describe '#truncated_body' do
     context 'when body have more then 100 chars' do
-      let(:post) { create(:post, user:  create(:user) ) }
+      let(:post) { create(:post, body: Faker::Lorem.paragraph(30) , user:  create(:user) ) }
       it 'should return first 100 chars of body plus ...' do
         expect(post.truncated_body).to eq(post.body.first(100) + "...")
       end
