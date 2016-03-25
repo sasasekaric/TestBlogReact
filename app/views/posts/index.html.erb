@@ -1,4 +1,9 @@
 <div class='row' class="posts">
   <%= render 'post', post: @featured_post if !@featured_post.nil? %>
   <%= render @posts if !@posts.empty? %>
+  <div class='row' >
+    <div class="col-xs-12 text-xs-center">
+      <%= will_paginate @posts %>
+    </div>
+  </div>
 </div>

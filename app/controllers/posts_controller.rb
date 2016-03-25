@@ -3,11 +3,12 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
   after_action :verify_authorized
 
+
   # GET /posts
   # GET /posts.json
   def index
     @featured_post = Post.featured.first
-    @posts = Post.unfeatured.order(created_at: :desc)
+    @posts = Post.unfeatured.order(created_at: :desc).paginate(page: params[:page] || 1)
     authorize Post
   end
 
@@ -15,7 +16,7 @@ class PostsController < ApplicationController
   # GET /my_posts.json
   def my_posts
     @featured_post = Post.user_featured(current_user).first
-    @posts = Post.user_unfeatured(current_user).order(created_at: :desc)
+    @posts = Post.user_unfeatured(current_user).order(created_at: :desc).paginate(page: params[:page] || 1)
     authorize Post, :index?
     respond_to do |format|
       format.html {render 'index'}
