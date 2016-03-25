@@ -34,21 +34,4 @@ class ApplicationPolicy
     false
   end
 
-  def scope
-    false
-  end
-
-  # class Scope
-  #   attr_reader :user, :scope
-
-  #   def initialize(user, scope)
-  #     @user = user
-  #     @scope = scope
-  #   end
-
-  #   def resolve
-  #     scope
-  #   end
-  # end
-
 end

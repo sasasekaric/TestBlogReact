@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PostPolicy do
   subject { PostPolicy.new(current_user, post) }
+
   let(:user) { create(:user) }
   let(:post) { create(:post, user: user) }
 
@@ -15,6 +16,7 @@ RSpec.describe PostPolicy do
     it { should forbid_action(:destroy) }
     it { should forbid_action(:edit) }
     it { should forbid_action(:update) }
+
   end
 
   context "as loged in user with own post" do
@@ -27,6 +29,7 @@ RSpec.describe PostPolicy do
     it { should permit_action(:show) }
     it { should permit_action(:create) }
     it { should permit_action(:update) }
+
   end
 
   context "as loged in user with other post" do
@@ -35,7 +38,9 @@ RSpec.describe PostPolicy do
     it { should forbid_action(:destroy) }
     it { should forbid_action(:edit) }
     it { should forbid_action(:update) }
+
   end
+
   context "as loged in user with featured post" do
     let(:post) { create(:post, user: user, featured: true) }
     let(:current_user) { user }
@@ -43,6 +48,7 @@ RSpec.describe PostPolicy do
     it { should forbid_action(:destroy) }
     it { should forbid_action(:edit) }
     it { should forbid_action(:update) }
+
   end
 
 end

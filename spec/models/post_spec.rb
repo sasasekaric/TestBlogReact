@@ -13,7 +13,6 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
 
-
   describe '#truncated_body' do
     context 'when body have more then 100 chars' do
       let(:post) { create(:post, body: Faker::Lorem.paragraph(30) , user:  create(:user) ) }
