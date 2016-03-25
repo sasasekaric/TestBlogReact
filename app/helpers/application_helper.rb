@@ -14,4 +14,15 @@ module ApplicationHelper
     nil
   end
 
+  def errors(messages)
+    messages.each do | message|
+      concat(content_tag(:div, message, class: "alert alert-danger fade in", role: 'alert') do
+              concat content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' })
+              concat message
+            end)
+    end
+    nil
+  end
+
+
 end

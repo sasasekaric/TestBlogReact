@@ -1,25 +1,22 @@
-<%= form_for(@post) do |f| %>
+<%= form_for(@post, html: {class: 'form'}) do |f| %>
   <% if @post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
-      <ul>
-      <% @post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+      <div class="form-group col-xs-12 col-md-8 col-md-offset-2">
+        <%= errors(@post.errors.full_messages) %>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="row">
+    <div class="form-group col-xs-12 col-md-8 col-md-offset-2">
+      <%= f.label :title, class: 'sr-only' %>
+      <%= f.text_field :title, autofocus: true, class: 'form-control', placeholder: 'title' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+  <div class="row">
+    <div class="form-group col-xs-12 col-md-8 col-md-offset-2">
+      <%= f.label :body, class: 'sr-only' %>
+      <%= f.text_area :body, class: 'form-control', placeholder: 'Body', rows: 10 %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit params[:action] == 'new' ? 'Create' : 'Update', class: 'btn btn-primary' %>
 <% end %>
