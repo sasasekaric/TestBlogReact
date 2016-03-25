@@ -11,6 +11,12 @@ end
   User.first.posts.create! title: Faker::Name.title, body: Faker::Lorem.paragraph
 end
 
-4.times do |n|
+10.times do |n|
+  User.second.posts.create! title: Faker::Name.title, body: Faker::Lorem.paragraph
+end
+
+22.times do |n|
   User.last.posts.create! title: Faker::Name.title, body: Faker::Lorem.paragraph
 end
+
+Post.all.sample.update_attributes! featured: true
