@@ -19,7 +19,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def edit?
-    my_post?
+    my_post? && not_featured?
   end
 
   def create?
@@ -27,15 +27,19 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    my_post?
+    my_post? && not_featured?
   end
 
   def destroy?
-    my_post?
+    my_post? && not_featured?
   end
 
 
   private
+
+  def not_featured?
+    !post.featured
+  end
 
   def my_post?
     user == post.user

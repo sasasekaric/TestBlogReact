@@ -32,12 +32,17 @@ RSpec.describe PostPolicy do
   context "as loged in user with other post" do
     let(:current_user) { create(:user) }
 
-    it { should permit_action(:index) }
-    it { should permit_action(:new) }
-    it { should permit_action(:show) }
-    it { should permit_action(:create) }
     it { should forbid_action(:destroy) }
     it { should forbid_action(:edit) }
     it { should forbid_action(:update) }
   end
+  context "as loged in user with featured post" do
+    let(:post) { create(:post, user: user, featured: true) }
+    let(:current_user) { user }
+
+    it { should forbid_action(:destroy) }
+    it { should forbid_action(:edit) }
+    it { should forbid_action(:update) }
+  end
+
 end
