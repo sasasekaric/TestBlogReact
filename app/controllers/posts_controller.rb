@@ -6,16 +6,20 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @featured_post = Post.featured
-    @posts = Post.unfeatured
+    @featured_post = Post.featured.first
+    @posts = Post.unfeatured.order(created_at: :desc)
     authorize Post
   end
 
   # GET /my_posts
   # GET /my_posts.json
   def my_posts
-    @posts = current_user.posts
+    @featured_post = Post.user_featured(current_user).first
+    @posts = Post.user_unfeatured(current_user).order(created_at: :desc)
     authorize Post, :index?
+    respond_to do |format|
+      format.html {render 'index'}
+    end
   end
 
   # GET /posts/1

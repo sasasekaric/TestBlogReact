@@ -1,4 +1,4 @@
 <div class='row' class="posts">
-  <%= render 'post', post: @featured_post if @featured_post %>
-  <%= render @posts %>
+  <%= render 'post', post: @featured_post if !@featured_post.nil? %>
+  <%= render @posts if !@posts.empty? %>
 </div>
