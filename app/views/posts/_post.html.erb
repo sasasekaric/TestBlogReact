@@ -13,8 +13,12 @@
         <h4 class="card-title"><%= post.title %></h4>
       </div>
       <div class="card-block">
-        <p class="card-text"><%= post.truncated_body %></p>
-        <%= link_to 'Read more...', post_path(post), class: 'card-link btn btn-sm btn-primary' %>
+        <% if params[:action] == 'show' %>
+          <p class="card-text"><%= post.body %></p>
+        <% else %>
+          <p class="card-text"><%= post.truncated_body %></p>
+          <%= link_to 'Read more...', post_path(post), class: 'card-link btn btn-sm btn-primary' %>
+        <% end %>
         <% if user_signed_in? && policy(post).update? && (params[:action] == 'my_posts' or params[:action] == 'show' ) %>
           <%= link_to 'Edit', edit_post_path(post), class: 'card-link btn btn-sm btn-primary' %>
           <%= link_to 'Destroy', post_path(post), class: 'card-link btn btn-sm btn-danger', method: :delete, data: {confirm: 'Are you sure?'} %>

@@ -1,16 +1,26 @@
 $card-shadow-color: #888888;
+@mixin uppercaseHeader {
+  color: white;
+  text-transform: uppercase;
+}
+
 
 .posts-index, .posts-my_posts {
   .card {
     min-height: 400px;
     .card-header {
-      color: white;
-      text-transform: uppercase;
+      @include uppercaseHeader;
     }
     .card-footer {
       position: absolute;
       bottom: 0;
       width: 100%;
     }
+  }
+}
+
+.posts-show {
+  .card-header {
+    @include uppercaseHeader;
   }
 }
