@@ -6,14 +6,28 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @featured_post = Post.featured
+    @posts = Post.unfeatured
     authorize Post
+  end
+
+  # GET /my_posts
+  # GET /my_posts.json
+  def my_posts
+    @posts = current_user.posts
+    authorize Post, :index?
   end
 
   # GET /posts/1
   # GET /posts/1.json
   def show
     authorize @post
+    respond_to do |format|
+      format.html {}
+      format.js {render :show}
+      format.json {@post}
+      format.xml {@post}
+    end
   end
 
   # GET /posts/new

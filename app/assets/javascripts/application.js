@@ -17,5 +17,5 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require ie10-viewport-bug-workaround
+//= require_tree .

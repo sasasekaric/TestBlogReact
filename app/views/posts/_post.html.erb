@@ -1,0 +1,27 @@
+<% if params[:action] == 'index' or params[:action] == 'my_posts' %>
+  <div class="col-sm-12 col-md-6 col-lg-4" data-post="<%= post.id %>">
+<% else %>
+  <div class="col-sm-12" data-post="<%= post.id %>">
+<% end %>
+    <div class="card text-xs-center">
+      <% if post.featured %>
+        <div class="card-header text-xs-center card-primary">
+          Featured
+        </div>
+      <% end %>
+      <div class="card-block text-xs-center">
+        <h4 class="card-title"><%= post.title %></h4>
+      </div>
+      <div class="card-block">
+        <p class="card-text"><%= post.truncated_body %></p>
+        <%= link_to 'Read more...', post_path(post), class: 'btn btn-sm btn-primary' %>
+        <% if user_signed_in? && policy(post).update? && (params[:action] == 'my_posts' or params[:action] == 'show' ) %>
+          <%= link_to 'Edit', edit_post_path(post), class: 'card-link' %>
+          <%= link_to 'Destroy', post_path(post), class: 'card-link', method: :delete %>
+        <% end %>
+      </div>
+      <div class="card-footer text-xs-center text-muted">
+        created by <b><%= post.user.name %></b> <i><%= time_ago_in_words(post.created_at) %> ago</i>
+      </div>
+    </div>
+  </div>

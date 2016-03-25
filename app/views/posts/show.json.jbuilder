@@ -1,1 +1,5 @@
-json.extract! @post, :id, :title, :body, :user_id, :created_at, :updated_at
+json.extract! @post, :title, :truncated_body
+
+json.user do
+  json.name @post.user.name
+end
