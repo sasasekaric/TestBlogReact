@@ -23,6 +23,7 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'jquery-turbolinks'
 gem 'whenever', :require => false
 gem 'rails_12factor', group: :production
+gem 'faker'
 
 
 # To use bootstrap tooltips and popovers you need tether, just uncomment next lines
@@ -34,7 +35,6 @@ gem 'simplecov', :require => false, :group => :test
 gem 'puma'
 gem 'pry-rails', :groups => [:development, :test]
 gem 'quiet_assets', group: :development
-gem 'faker', group: :test
 
 
 gem 'rails', '4.2.5'
