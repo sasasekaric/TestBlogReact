@@ -121,10 +121,10 @@ RSpec.describe PostsController, type: :controller do
       @user = create(:user)
       @user2 = create(:user)
       @post = create(:post, title: 'Something', user: @user, created_at: Time.zone.now - 1.hour)
-      @featured_post = create(:featured_post, title: 'Something', user: @user, created_at: Time.zone.now - 1.minute)
-      @post2 = create(:post, title: 'Something', user: @user2, created_at: Time.zone.now)
+      @featured_post = create(:featured_post, title: 'Somethin', user: @user, created_at: Time.zone.now - 1.minute)
+      @post2 = create(:post, title: 'Somethi', user: @user2, created_at: Time.zone.now)
       @post3 = create(:post, user: @user2, created_at: Time.zone.now)
-      patch :search, {:q => 'Something'}
+      patch :search, {:q => 'Somet'}
     end
     it "should render index view" do
       expect(response).to render_template :index

@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user, :title, :body
+  validates_uniqueness_of :title
 
   # Paginate 9 per page
   self.per_page = 9
@@ -22,7 +23,7 @@ class Post < ActiveRecord::Base
 
   # search post with field and query
   def self.search(field, query)
-    where("#{field} LIKE ? AND featured IS false", "%#{query}%")
+    where("lower(#{field}) LIKE ? AND featured IS false", "%#{query.downcase}%")
   end
 
 end
