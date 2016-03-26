@@ -1,18 +1,16 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_featured_post, only: [:index, :search]
   before_action :authenticate_user!, only: [:new, :my_posts, :edit, :create, :update, :destroy]
   after_action :verify_authorized
 
   # GET /posts
-  # GET /posts.json
   def index
-    @featured_post = Post.featured.first
     @posts = Post.unfeatured.order(created_at: :desc).paginate(page: params[:page] || 1)
     authorize Post
   end
 
-  # GET /my_posts
-  # GET /my_posts.json
+  # GET /posts/my_posts
   def my_posts
     @featured_post = Post.user_featured(current_user).first
     @posts = Post.user_unfeatured(current_user).order(created_at: :desc).paginate(page: params[:page] || 1)
@@ -22,8 +20,16 @@ class PostsController < ApplicationController
     end
   end
 
+  # GET /posts/search
+  def search
+    @posts = Post.search(:title, params[:q]).order(created_at: :desc).paginate(page: params[:page] || 1)
+    authorize Post, :index?
+    respond_to do |format|
+      format.html {render 'index'}
+    end
+  end
+
   # GET /posts/1
-  # GET /posts/1.json
   def show
     authorize @post
     respond_to do |format|
@@ -46,7 +52,6 @@ class PostsController < ApplicationController
   end
 
   # POST /posts
-  # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
     authorize @post
@@ -63,7 +68,6 @@ class PostsController < ApplicationController
   end
 
   # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
   def update
     authorize @post
     respond_to do |format|
@@ -78,7 +82,6 @@ class PostsController < ApplicationController
   end
 
   # DELETE /posts/1
-  # DELETE /posts/1.json
   def destroy
     authorize @post
     @post.destroy
@@ -89,6 +92,10 @@ class PostsController < ApplicationController
   end
 
   private
+
+    def set_featured_post
+      @featured_post = Post.featured.first
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
@@ -96,6 +103,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :q)
     end
 end

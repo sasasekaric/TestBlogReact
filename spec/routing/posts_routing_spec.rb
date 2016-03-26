@@ -7,6 +7,10 @@ RSpec.describe PostsController, type: :routing do
       expect(:get => "/posts").to route_to("posts#index")
     end
 
+    it "routes to #my_posts" do
+      expect(:get => "/posts/my_posts").to route_to("posts#my_posts")
+    end
+
     it "routes to #new" do
       expect(:get => "/posts/new").to route_to("posts#new")
     end
@@ -33,6 +37,10 @@ RSpec.describe PostsController, type: :routing do
 
     it "routes to #destroy" do
       expect(:delete => "/posts/1").to route_to("posts#destroy", :id => "1")
+    end
+
+    it "routes to #search" do
+      expect(:patch => "/posts/search").to route_to("posts#search")
     end
 
   end

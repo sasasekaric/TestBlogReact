@@ -13,6 +13,17 @@ RSpec.describe Post, type: :model do
   it { should validate_presence_of :title }
   it { should validate_presence_of :body }
 
+  describe '.search' do
+    let(:post) { create(:post, created_at: Time.zone.now - 1.day) }
+    let(:post1) { create(:post, created_at: Time.zone.now - 1.minute) }
+    let(:post2) { create(:post, title: post.title) }
+
+    it 'should return correct posts' do
+      expect(Post.search(:title, post.title)).to eq([post, post2])
+      expect(Post.search(:body, post.body.first(10))).to eq([post])
+    end
+  end
+
   describe '#truncated_body' do
     context 'when body have more then 100 chars' do
       let(:post) { create(:post, body: Faker::Lorem.paragraph(30) , user:  create(:user) ) }

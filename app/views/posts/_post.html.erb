@@ -1,4 +1,4 @@
-<% if (params[:action] == 'index' or params[:action] == 'my_posts') && !post.featured %>
+<% if (params[:action] == 'search' or params[:action] == 'index' or params[:action] == 'my_posts') && !post.featured %>
   <div class="col-sm-12 col-md-6 col-lg-4" data-post="<%= post.id %>">
 <% else %>
   <div class="col-sm-12" data-post="<%= post.id %>">

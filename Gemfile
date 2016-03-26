@@ -17,7 +17,7 @@ gem 'devise'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'pundit'
 gem 'will_paginate', '~> 3.0.6'
-
+gem 'jquery-turbolinks'
 
 # To use bootstrap tooltips and popovers you need tether, just uncomment next lines
 source 'https://rails-assets.org' do

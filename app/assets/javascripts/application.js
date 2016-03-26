@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 // For faster compilation, delete bootstrap-sprockets and add bootstrap after jquery
 // To use bootstrap tooltips and popovers you need tether, add it after jquery but before bootstrap
 //= require tether

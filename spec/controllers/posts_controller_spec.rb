@@ -46,6 +46,12 @@ RSpec.describe PostsController, type: :controller do
       @post_params = attributes_for(:post)
       sign_in @post.user
     end
+    context '#set_featured_post on' do
+      before do
+        expect(controller).to receive(:set_featured_post).and_call_original
+      end
+      [:index, :search].each {|method| include_examples 'call method', method }
+    end
     context '#set_post on' do
       before do
         expect(controller).to receive(:set_post).and_call_original
@@ -109,6 +115,28 @@ RSpec.describe PostsController, type: :controller do
       end
     end
   end
+
+  describe "PATCH #search" do
+    before do
+      @user = create(:user)
+      @user2 = create(:user)
+      @post = create(:post, title: 'Something', user: @user, created_at: Time.zone.now - 1.hour)
+      @featured_post = create(:featured_post, title: 'Something', user: @user, created_at: Time.zone.now - 1.minute)
+      @post2 = create(:post, title: 'Something', user: @user2, created_at: Time.zone.now)
+      @post3 = create(:post, user: @user2, created_at: Time.zone.now)
+      patch :search, {:q => 'Something'}
+    end
+    it "should render index view" do
+      expect(response).to render_template :index
+    end
+    it "assigns posts as @posts in descending order" do
+      expect(assigns(:posts)).to eq([@post2, @post])
+    end
+    it "assigns featured post as @featured_post" do
+      expect(assigns(:featured_post)).to eq(@featured_post)
+    end
+  end
+
 
   describe "GET #show" do
     before do
