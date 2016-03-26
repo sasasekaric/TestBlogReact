@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Add ruby version here for Heroku
+ruby "2.2.2"
+
 # # Use mysql2 version '0.3.18', newer versions have some bugs
 # gem "mysql2", "~> 0.3.18"
 
@@ -19,6 +22,7 @@ gem 'pundit'
 gem 'will_paginate', '~> 3.0.6'
 gem 'jquery-turbolinks'
 gem 'whenever', :require => false
+gem 'rails_12factor', group: :production
 
 
 # To use bootstrap tooltips and popovers you need tether, just uncomment next lines
