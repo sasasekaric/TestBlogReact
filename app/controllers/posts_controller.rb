@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   # GET /posts/search
   def search
-    @posts = Post.search(:title, params[:q]).order(created_at: :desc).paginate(page: params[:page] || 1)
+    @posts = Post.search(:title, params[:q]).order(created_at: :desc)
     authorize Post, :index?
     respond_to do |format|
       format.html {render 'index'}

@@ -14,6 +14,30 @@ RSpec.describe Post, type: :model do
   it { should validate_uniqueness_of :title }
   it { should validate_presence_of :body }
 
+  describe '.swap_featured' do
+    before do
+      @featured_post = create(:featured_post)
+      @post = create(:post)
+    end
+
+    it 'should remove featured from featured post' do
+      expect{Post.swap_featured}.to change{@featured_post.reload.featured}.from(true).to(false)
+    end
+    it 'should add featured to unfeatured post' do
+      expect{Post.swap_featured}.to change{@post.reload.featured}.from(false).to(true)
+    end
+    context 'with many posts' do
+      before do
+        @post1 = create(:post)
+        @post2 = create(:post)
+        @post3 = create(:post)
+      end
+      it 'should always be one post featured' do
+        expect{Post.swap_featured}.not_to change{Post.featured.count}
+      end
+    end
+  end
+
   describe '.search' do
     before do
       @post = create(:post, created_at: Time.zone.now - 1.day)

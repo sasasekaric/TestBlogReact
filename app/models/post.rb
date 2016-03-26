@@ -26,4 +26,14 @@ class Post < ActiveRecord::Base
     where("lower(#{field}) LIKE ? AND featured IS false", "%#{query.downcase}%")
   end
 
+  # remove featured from one post and add it to another
+  def self.swap_featured
+    featured = Post.featured.first
+    unfeatured = Post.unfeatured.sample
+    ActiveRecord::Base.transaction do
+      featured.update_attributes! featured: false
+      unfeatured.update_attributes! featured: true
+    end
+  end
+
 end
