@@ -4,7 +4,7 @@ RSpec.describe PostPolicy do
   subject { PostPolicy.new(current_user, post) }
 
   let(:user) { create(:user) }
-  let(:post) { create(:post, user: user) }
+  let(:post) { create(:post, title: 'Some title', user: user) }
 
   context "as a visitor" do
     let(:current_user) { nil }
@@ -42,7 +42,7 @@ RSpec.describe PostPolicy do
   end
 
   context "as loged in user with featured post" do
-    let(:post) { create(:post, user: user, featured: true) }
+    let(:post) { create(:post, title: 'Title', user: user, featured: true) }
     let(:current_user) { user }
 
     it { should forbid_action(:destroy) }

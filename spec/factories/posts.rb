@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :post do
     user
-    title { Faker::Name.title }
+    sequence(:title) { |n| "#{Faker::Name.title}#{n}" }
     body { Faker::Lorem.paragraph }
 
     factory :featured_post do
