@@ -23,6 +23,17 @@ When(/^I try to sign_up with name '(.+)'$/) do |username|
   click_button 'Sign Up'
 end
 
+When(/^I try to sign_up with password confirmation '(.+)'$/) do |pass_confirmation|
+  within("#new_user") do
+    fill_in 'Email', :with => @user.email
+    fill_in 'Name', :with => @user.name
+    fill_in 'Password', :with => @user.password
+    fill_in 'Password confirmation', :with => pass_confirmation
+  end
+  click_button 'Sign Up'
+end
+
+
 When(/^I try to sign_up with email '(.+)' and password '(.+)'$/) do |email, pass|
   within("#new_user") do
     fill_in 'Email', :with => email

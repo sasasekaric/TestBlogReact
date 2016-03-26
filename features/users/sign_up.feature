@@ -27,3 +27,36 @@ Feature: Sign Up
     And I try to sign_up with name 'username'
     And I should see flash message 'Name has already been taken'
     And I should not see 'Sign Out' link
+
+  Scenario: User with invalid email
+    Given I am an visitor
+    When I visit home page
+    And I click Sign Up link
+    And I try to sign_up with email 'something' and password 'somepassword'
+    And I should see flash message 'Email is invalid'
+    And I should not see 'Sign Out' link
+
+  Scenario: User with short password
+    Given I am an visitor
+    When I visit home page
+    And I click Sign Up link
+    And I try to sign_up with email 'example@email.com' and password 'short'
+    And I should see flash message 'Password is too short (minimum is 8 characters)'
+    And I should not see 'Sign Out' link
+
+  Scenario: User with long password
+    Given I am an visitor
+    When I visit home page
+    And I click Sign Up link
+    And I try to sign_up with email 'example@email.com' and password 'sajhjkdshckjsnbkjcnsjkncjksdnjkcxsjkaslknjcklsancpsdnajkcnsdjkncjkdsncjksdhckjdsjkcsjkdjkc'
+    And I should see flash message 'Password is too long (maximum is 72 characters)'
+    And I should not see 'Sign Out' link
+
+  Scenario: User with password confirmation not match password
+    Given I am an visitor
+    When I visit home page
+    And I click Sign Up link
+    And I try to sign_up with password confirmation 'something'
+    And I should see flash message 'Password confirmation doesn't match Password'
+    And I should not see 'Sign Out' link
+
