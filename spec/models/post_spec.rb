@@ -50,7 +50,6 @@ RSpec.describe Post, type: :model do
       expect(Post.search(:title, @post.title.first(5) )).to include(@post)
       expect(Post.search(:title, @post.title.first(5) )).to include(@post2)
       expect(Post.search(:title, @post.title.first(5) )).to include(@post3)
-      expect(Post.search(:body, @post.body.first(8))).to eq([@post])
     end
   end
 

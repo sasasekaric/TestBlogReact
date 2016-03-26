@@ -7,3 +7,4 @@ Feature: Confirm instructions
     And I click Sign Up link
     And I try to sign_up
     Then I should recive an email
+    And I should see flash message 'A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.'
