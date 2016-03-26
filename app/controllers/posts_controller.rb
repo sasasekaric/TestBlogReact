@@ -6,26 +6,30 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.unfeatured.order(created_at: :desc).paginate(page: params[:page] || 1)
+    @posts = Post.unfeatured.order(created_at: :desc).paginate(page: page, per_page: per_page)
     authorize Post
   end
 
   # GET /posts/my_posts
   def my_posts
     @featured_post = Post.user_featured(current_user).first
-    @posts = Post.user_unfeatured(current_user).order(created_at: :desc).paginate(page: params[:page] || 1)
+    @posts = Post.user_unfeatured(current_user).order(created_at: :desc).paginate(page: page, per_page: per_page)
     authorize Post, :index?
     respond_to do |format|
       format.html {render 'index'}
+      format.json {render 'index'}
+      format.xml {render 'index'}
     end
   end
 
   # GET /posts/search
   def search
-    @posts = Post.search(:title, params[:q]).order(created_at: :desc)
+    @posts = Post.search(:title, params[:q]).order(created_at: :desc).paginate(page: page, per_page: per_page)
     authorize Post, :index?
     respond_to do |format|
       format.html {render 'index'}
+      format.json {render 'index'}
+      format.xml {render 'index'}
     end
   end
 
@@ -34,7 +38,6 @@ class PostsController < ApplicationController
     authorize @post
     respond_to do |format|
       format.html {}
-      format.js {render :show}
       format.json {@post}
       format.xml {@post}
     end
@@ -60,9 +63,11 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
+        format.xml { render :show, status: :created, location: @post }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,9 +79,11 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
+        format.xml { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.xml { render xml: @post.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -88,14 +95,28 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+      format.xml { head :no_content }
     end
   end
 
   private
 
+    def per_page
+      if params[:per_page]
+        params[:per_page].to_i < 10 ? params[:per_page].to_i : 10
+      else
+        9
+      end
+    end
+
+    def page
+      params[:page] || 1
+    end
+
     def set_featured_post
       @featured_post = Post.featured.first
     end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])

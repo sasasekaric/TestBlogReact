@@ -3,9 +3,6 @@ class Post < ActiveRecord::Base
   validates_presence_of :user, :title, :body
   validates_uniqueness_of :title
 
-  # Paginate 9 per page
-  self.per_page = 9
-
   # return only featured posts
   scope :featured, -> { where(featured: true).includes(:user) }
   # return only unfeatured posts
