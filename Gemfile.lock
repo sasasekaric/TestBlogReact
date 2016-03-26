@@ -142,6 +142,8 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -312,6 +314,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  launchy
   pg (~> 0.15)
   pry-rails
   puma
