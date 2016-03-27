@@ -24,7 +24,8 @@ gem 'jquery-turbolinks'
 gem 'whenever', :require => false
 gem 'rails_12factor', group: :production
 gem 'faker'
-
+gem 'react-rails', '~> 1.6.0'
+gem 'sprockets-coffee-react'
 
 # To use bootstrap tooltips and popovers you need tether, just uncomment next lines
 source 'https://rails-assets.org' do

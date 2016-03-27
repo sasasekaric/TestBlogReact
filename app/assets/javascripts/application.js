@@ -19,4 +19,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ie10-viewport-bug-workaround
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

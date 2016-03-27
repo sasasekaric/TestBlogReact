@@ -1,11 +1,11 @@
 $card-shadow-color: #888888;
+
 @mixin uppercaseHeader {
   color: white;
   text-transform: uppercase;
 }
 
-
-.posts-index, .posts-my_posts, .posts-search {
+.posts-index, .posts-my_posts, .posts-search, .welcome-index {
   .card {
     min-height: 400px;
     .card-header {
@@ -16,6 +16,9 @@ $card-shadow-color: #888888;
       bottom: 0;
       width: 100%;
     }
+  }
+  .card-fullwidth {
+    min-height: 600px;
   }
 }
 

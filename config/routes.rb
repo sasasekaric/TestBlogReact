@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root to: "posts#index"
 
   devise_for :users
@@ -10,5 +11,7 @@ Rails.application.routes.draw do
       get 'my_posts', as: 'my'
     end
   end
+
+  match '/react', to: 'welcome#index', as: 'react', via: :get
 
 end
