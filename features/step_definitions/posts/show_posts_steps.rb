@@ -1,7 +1,7 @@
-Given(/^I am an visitor and there is (\d+) posts$/) do |n|
+Given(/^I am an visitor and there is (\d+) posts$/) do |number|
   @user = build(:user)
-  n.to_i.times do
-    create(:post)
+  number.to_i.times do |n|
+    instance_variable_set("@post#{n.to_i + 1}", create(:post))
   end
 end
 
